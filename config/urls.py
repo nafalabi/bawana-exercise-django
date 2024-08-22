@@ -6,6 +6,13 @@ from django.urls import include
 from django.urls import path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+from rest_framework import routers as rest_routers
+
+from django_backend.users import views as user_views
+
+rest_routers = rest_routers.DefaultRouter()
+rest_routers.register(r'users', user_views.UserViewSet)
+rest_routers.register(r'groups', user_views.GroupViewSet)
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -23,6 +30,8 @@ urlpatterns = [
     # ...
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(rest_routers.urls)),
 ]
 
 
