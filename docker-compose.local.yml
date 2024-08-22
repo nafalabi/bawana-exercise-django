@@ -1,7 +1,7 @@
 volumes:
   django_backend_local_postgres_data: {}
   django_backend_local_postgres_data_backups: {}
-  
+
 
 services:
   django:
@@ -32,6 +32,8 @@ services:
       - django_backend_local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
+    ports:
+      - '5432:5432'
 
   node:
     build:
