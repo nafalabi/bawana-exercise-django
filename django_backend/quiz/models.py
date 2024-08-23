@@ -4,17 +4,18 @@ from django_backend.users.models import User
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField("date published", auto_now_add=True)
     category = models.CharField(max_length=200)
+    # choices = models.ManyToOneRel("id", "quiz.Choice", "question_id")
 
 class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, related_name="choices", on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
-    correct_choice = models.BooleanField(default=False)
+    is_correct = models.BooleanField(default=False)
 
 class Quiz(models.Model):
-    filter = models.CharField(max_length=200)
-    questions = models.ManyToManyField(Question)
+    filter_category = models.CharField(max_length=200)
+    questions = models.ManyToManyField(Question, max_length=10)
     time = models.DurationField(default=0)
 
 class QuizSession(models.Model):
@@ -23,7 +24,15 @@ class QuizSession(models.Model):
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True)
 
-class QuizSessionQuestion(models.Model):
+class QuizSessionChoice(models.Model): # Intentional Redundancy
     session = models.ForeignKey(QuizSession, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    answer = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.DO_NOTHING)
+    choice = models.ForeignKey(Choice, on_delete=models.DO_NOTHING)
+    choice_text = models.CharField(max_length=200)
+    is_correct = models.BooleanField(default=False)
+
+class QuizSessionQuestion(models.Model): # Intentional Redundancy
+    session = models.ForeignKey(QuizSession, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.DO_NOTHING)
+    question_text = models.CharField(max_length=200)
+    answer = models.ForeignKey(QuizSessionChoice, on_delete=models.DO_NOTHING, null=True)

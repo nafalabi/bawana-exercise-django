@@ -9,10 +9,12 @@ from django.views.generic import TemplateView
 from rest_framework import routers as rest_routers
 
 from django_backend.users import views as user_views
+from django_backend.quiz import views as quiz_views
 
 rest_routers = rest_routers.DefaultRouter()
 rest_routers.register(r'users', user_views.UserViewSet)
 rest_routers.register(r'groups', user_views.GroupViewSet)
+rest_routers.register(r'questions', quiz_views.QuestionViewSet, basename='question')
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
