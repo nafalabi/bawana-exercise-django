@@ -13,6 +13,7 @@ class QuestionPayloadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['id', 'question_text', 'category', 'choices']
+        read_only_fields = ['id']
 
     def create(self, validated_data):
         choices_data = validated_data.pop('choices')
@@ -22,4 +23,20 @@ class QuestionPayloadSerializer(serializers.ModelSerializer):
             Choice.objects.create(question=question, **choice_data)
 
         return question
+
+    def update(self, instance, validated_data):
+        # Update the Question instance
+        instance.question_text = validated_data.get('question_text', instance.question_text)
+        instance.category = validated_data.get('category', instance.category)
+        instance.save()
+
+        # Clear existing choices
+        instance.choices.all().delete()
+
+        # Create new choices
+        choices_data = validated_data.get('choices', [])
+        for choice_data in choices_data:
+            Choice.objects.create(question=instance, **choice_data)
+
+        return instance
 

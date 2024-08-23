@@ -6,7 +6,6 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published", auto_now_add=True)
     category = models.CharField(max_length=200)
-    # choices = models.ManyToOneRel("id", "quiz.Choice", "question_id")
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, related_name="choices", on_delete=models.CASCADE)
