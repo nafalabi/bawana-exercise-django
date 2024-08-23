@@ -55,4 +55,10 @@ class QuestionViewSet(viewsets.ViewSet):
         pass
 
     def destroy(self, request, pk=None):
-        pass
+        try:
+            question = Question.objects.get(pk=pk)
+        except Question.DoesNotExist:
+            return Response({'error': 'Question not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        question.delete()
+        return Response({'message': 'Question deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
