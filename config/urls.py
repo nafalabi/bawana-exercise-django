@@ -15,6 +15,7 @@ rest_routers = rest_routers.DefaultRouter()
 rest_routers.register(r'users', user_views.UserViewSet)
 rest_routers.register(r'groups', user_views.GroupViewSet)
 rest_routers.register(r'questions', quiz_views.QuestionViewSet, basename='question')
+rest_routers.register(r'quiz', quiz_views.QuizViewSet, basename='quiz')
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),

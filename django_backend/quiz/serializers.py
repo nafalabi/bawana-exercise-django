@@ -1,5 +1,5 @@
 from django.utils import timezone
-from .models import Question, Choice
+from .models import *
 from rest_framework import serializers
 
 class ChoiceSerializer(serializers.ModelSerializer):
@@ -40,3 +40,47 @@ class QuestionPayloadSerializer(serializers.ModelSerializer):
 
         return instance
 
+class QuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = ['id','filter_category', 'questions', 'time']
+        read_only_fields = ['id']
+        depth = 1
+        extra_kwargs = {
+            'questions': {'required': False}  # Makes the 'questions' field optional
+        }
+
+    def __init__(self, *args, **kwargs):
+        depth = kwargs.pop('depth', 1)
+        super(QuizSerializer, self).__init__(*args, **kwargs)
+
+        self.Meta.depth = depth
+
+    def create(self, validated_data):
+        validated_data.pop('questions', None)
+        quiz = Quiz.objects.create(**validated_data)
+
+        questions_data = Question.objects.filter(category__icontains=quiz.filter_category).order_by('?')[0:10]
+
+        quiz.questions.add(*questions_data)
+        quiz.save()
+
+        return quiz
+
+    def update(self, instance, validated_data):
+        instance.filter_category = validated_data.get('filter_category', instance.filter_category)
+        instance.time = validated_data.get('time', instance.time)
+        instance.save()
+
+        return instance
+
+    def resetQuestions(self):
+        instance = self.instance
+        instance.questions.clear()
+
+        questions_data = Question.objects.filter(category__icontains=instance.filter_category).order_by('?')[0:10]
+
+        instance.questions.add(*questions_data)
+        instance.save()
+
+        return instance
