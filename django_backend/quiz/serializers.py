@@ -84,3 +84,26 @@ class QuizSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class QuizSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizSession
+        fields = ['id', 'quiz', 'user', 'start_time', 'end_time', 'score']
+        read_only_fields = ['id', 'start_time', 'end_time', 'score']
+        depth = 0
+
+class QuizSessionChoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizSessionChoice
+        fields = ['id', 'choice_text', 'is_chosen']
+        read_only_fields = ['id', 'choice_text']
+
+class QuizSessionQuestionSerializer(serializers.ModelSerializer):
+    session_choices = QuizSessionChoiceSerializer(many=True)
+    class Meta:
+        model = QuizSessionQuestion
+        fields = ['id', 'question_text', 'session_choices']
+        read_only_fields = ['id', 'question_text']
+        # exclude = ['session', 'question']
+        depth = 1
