@@ -5,7 +5,13 @@
 
 {% block title %}Home{% endblock %}
 {% block css %}{% endblock %}
-{% block javascript %}{% endblock %}
+{% block javascript %}
+
+<script type="text/javascript">
+  window.isLoggedIn = {{ user.is_authenticated|yesno:"true,false" }}
+</script>
+
+{% endblock %}
 
 {% block body %}
 

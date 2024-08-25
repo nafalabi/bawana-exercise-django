@@ -68,7 +68,7 @@ const QuestionPage = () => {
                     title={"List Choices"}
                     content={<div className="flex flex-col gap-2">{
                       (row?.choices ?? []).map((choice, index) => (
-                        <div className="flex flex-row gap-2">
+                        <div key={`${index}-${choice?.choice_text}`} className="flex flex-row gap-2">
                           &middot;
                           <div className="font-normal">{choice?.choice_text}</div>
                           {/* <div></div> */}
