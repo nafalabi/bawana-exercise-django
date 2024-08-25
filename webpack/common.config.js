@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     project: path.resolve(__dirname, '../django_backend/static/js/project'),
     vendors: path.resolve(__dirname, '../django_backend/static/js/vendors'),
+    quiz_app: path.resolve(__dirname, '../django_backend/static/js/quiz-app'),
   },
   output: {
     path: path.resolve(
@@ -29,8 +30,17 @@ module.exports = {
     rules: [
       // we pass the output from babel loader to react-hot loader
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react'
+            ],
+          },
+        },
       },
       {
         test: /\.s?css$/i,
@@ -53,5 +63,8 @@ module.exports = {
   resolve: {
     modules: ['node_modules'],
     extensions: ['.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, '../django_backend/static/js/quiz-app'),
+    },
   },
 };

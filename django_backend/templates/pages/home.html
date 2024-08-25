@@ -1,3 +1,16 @@
 {% extends "base.html" %}
 
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div style="
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+">
+  <a href="{% url 'quiz' %}" style="padding: 2rem;font-size: 2rem;background: #eee;border-radius: 0.5rem;text-decoration: none;">
+    Go to Quiz App
+  </a>
+</div>
+{% endblock %}
 
