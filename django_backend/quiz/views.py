@@ -136,9 +136,12 @@ class QuizSessionViewSet(viewsets.ViewSet):
         user = request.user
         quiz_sessions = QuizSession.objects.filter(user=user)
 
-        serializer = QuizSessionSerializer(quiz_sessions, many=True)
+        paginator = PageNumberPagination()
+        paginated_sessions = paginator.paginate_queryset(quiz_sessions, request)
 
-        return Response(serializer.data)
+        serializer = QuizSessionSerializer(paginated_sessions, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
 
     def retrieve(self, request, pk=None):
         quiz_session = get_object_or_404(QuizSession, pk=pk)

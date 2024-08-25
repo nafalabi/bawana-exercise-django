@@ -1,3 +1,4 @@
+from django_backend.users import serializers as user_serializers
 from django.utils import timezone
 from .models import *
 from rest_framework import serializers
@@ -87,11 +88,14 @@ class QuizSerializer(serializers.ModelSerializer):
 
 
 class QuizSessionSerializer(serializers.ModelSerializer):
+    user = user_serializers.UserSerializer()
+    quiz = QuizSerializer(depth=0)
+
     class Meta:
         model = QuizSession
         fields = ['id', 'quiz', 'user', 'start_time', 'end_time', 'score']
         read_only_fields = ['id', 'start_time', 'end_time', 'score']
-        depth = 0
+        depth = 1
 
 class QuizSessionChoiceSerializer(serializers.ModelSerializer):
     class Meta:

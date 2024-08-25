@@ -35,34 +35,34 @@ export default function BaseLayout({content}) {
             <span className="sr-only">Acme Inc</span>
           </a>
           <a
-            href="#"
+            href="/"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Dashboard
+            Home
           </a>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Orders
-          </a>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Products
-          </a>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Customers
-          </a>
+          {/* <a */}
+          {/*   href="#" */}
+          {/*   className="text-muted-foreground transition-colors hover:text-foreground" */}
+          {/* > */}
+          {/*   Orders */}
+          {/* </a> */}
+          {/* <a */}
+          {/*   href="#" */}
+          {/*   className="text-muted-foreground transition-colors hover:text-foreground" */}
+          {/* > */}
+          {/*   Products */}
+          {/* </a> */}
+          {/* <a */}
+          {/*   href="#" */}
+          {/*   className="text-muted-foreground transition-colors hover:text-foreground" */}
+          {/* > */}
+          {/*   Customers */}
+          {/* </a> */}
           <a
             href="#"
             className="text-foreground transition-colors hover:text-foreground"
           >
-            Settings
+            Quiz
           </a>
         </nav>
         <Sheet>
@@ -86,31 +86,31 @@ export default function BaseLayout({content}) {
                 <span className="sr-only">Acme Inc</span>
               </a>
               <a
-                href="#"
+                href="/"
                 className="text-muted-foreground hover:text-foreground"
               >
-                Dashboard
+                Home
               </a>
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Orders
-              </a>
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Products
-              </a>
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Customers
-              </a>
+              {/* <a */}
+              {/*   href="#" */}
+              {/*   className="text-muted-foreground hover:text-foreground" */}
+              {/* > */}
+              {/*   Orders */}
+              {/* </a> */}
+              {/* <a */}
+              {/*   href="#" */}
+              {/*   className="text-muted-foreground hover:text-foreground" */}
+              {/* > */}
+              {/*   Products */}
+              {/* </a> */}
+              {/* <a */}
+              {/*   href="#" */}
+              {/*   className="text-muted-foreground hover:text-foreground" */}
+              {/* > */}
+              {/*   Customers */}
+              {/* </a> */}
               <a href="#" className="hover:text-foreground">
-                Settings
+                Quiz
               </a>
             </nav>
           </SheetContent>
@@ -146,7 +146,7 @@ export default function BaseLayout({content}) {
       </header>
       <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
         <div className="mx-auto grid w-full max-w-6xl gap-2">
-          <h1 className="text-3xl font-semibold">Settings</h1>
+          <h1 className="text-3xl font-semibold">Quiz</h1>
         </div>
         <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
           <nav
